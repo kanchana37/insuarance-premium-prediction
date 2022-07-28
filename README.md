@@ -8,7 +8,7 @@
 4. [GIT cli](https://git-scm.com/downloads)
 5. [GIT Documentation](https://git-scm.com/docs/gittutorial)
 
-#Dataset_download_url: https://www.kaggle.com/datasets/noordeen/insurance-premium-prediction
+Dataset_download_url: https://www.kaggle.com/datasets/noordeen/insurance-premium-prediction
 
 Creating conda environment
 ```
@@ -63,9 +63,9 @@ git remote -v
 ```
 
 To setup CI/CD pipeline in heroku we need 3 information
-1. HEROKU_EMAIL = anishyadav7045075175@gmail.com
+1. HEROKU_EMAIL = kanchanachopra376@gmail.com
 2. HEROKU_API_KEY = <>
-3. HEROKU_APP_NAME = ml-regression-app
+3. HEROKU_APP_NAME = insurance-prem-prediction12
 
 BUILD DOCKER IMAGE
 ```
