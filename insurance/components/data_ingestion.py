@@ -1,6 +1,6 @@
 from insurance.entity.config_entity import DataIngestionConfig
 import sys,os
-from insurance.exception import HousingException
+from insurance.exception import PackageException
 from insurance.logger import logging
 from insurance.entity.artifact_entity import DataIngestionArtifact
 import tarfile
@@ -17,7 +17,7 @@ class DataIngestion:
             self.data_ingestion_config = data_ingestion_config
 
         except Exception as e:
-            raise insuranceException(e,sys)
+            raise PackageException(e,sys)
     
 
     def download_insurance_data(self,) -> str:
@@ -40,7 +40,7 @@ class DataIngestion:
             return tgz_file_path
 
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def extract_tgz_file(self,tgz_file_path:str):
         try:
@@ -57,7 +57,7 @@ class DataIngestion:
             logging.info(f"Extraction completed")
 
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
     
     def split_data_as_train_test(self) -> DataIngestionArtifact:
         try:
@@ -114,7 +114,7 @@ class DataIngestion:
             return data_ingestion_artifact
 
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
@@ -122,7 +122,7 @@ class DataIngestion:
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
             return self.split_data_as_train_test()
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
     
 
 

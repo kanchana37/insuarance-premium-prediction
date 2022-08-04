@@ -2,7 +2,7 @@ import os
 import sys
 from unicodedata import category
 
-from insurance.exception import insuranceException
+from insurance.exception import PackageException
 from insurance.util.util import load_object
 
 import pandas as pd
@@ -10,26 +10,28 @@ import pandas as pd
 
 class insuranceData:
 
+    
     def __init__(self,
-                 sex :category,
-                 age: int,
-                 bmi: float,
-                 children: int,
-                 smoker: category,
-                 region: category,
-                 expenses: float=none
+                 age : int,
+                 sex : str,
+                 bmi : float,
+                 children : int,
+                 smoker : str,
+                 region : str,
+                 expenses : float
                  ):
+
         try:
             self.age = age
             self.sex = sex
             self.bmi = bmi
             self.children = children
-            self.region = region
-            self.expenses= expenses
             self.smoker = smoker
+            self.region = region
+            self.expenses = expenses
           
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def get_insurance_input_data_frame(self):
 
@@ -37,7 +39,7 @@ class insuranceData:
             insurance_input_dict = self.get_insurance_data_as_dict()
             return pd.DataFrame(insurance_input_dict)
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def get_insurance_data_as_dict(self):
         try:
@@ -49,9 +51,10 @@ class insuranceData:
                 "smoker": [self.smoker],
                 "region": [self.region],
                 "expenses": [self.expenses]}
+                
             return input_data
         except Exception as e:
-            raise insuranceException(e, sys)
+            raise PackageException(e, sys)
 
 
 class insurance_prem_Predictor:
@@ -60,7 +63,7 @@ class insurance_prem_Predictor:
         try:
             self.model_dir = model_dir
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def get_latest_model_path(self):
         try:
@@ -70,7 +73,7 @@ class insurance_prem_Predictor:
             latest_model_path = os.path.join(latest_model_dir, file_name)
             return latest_model_path
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def predict(self, X):
         try:
@@ -79,4 +82,4 @@ class insurance_prem_Predictor:
             insurance_prem_value = model.predict(X)
             return insurance_prem_value
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e

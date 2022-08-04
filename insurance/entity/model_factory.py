@@ -3,7 +3,7 @@ import importlib
 from pyexpat import model
 import numpy as np
 import yaml
-from insurance.exception import insuranceException
+from insurance.exception import PackageException
 import os
 import sys
 
@@ -116,7 +116,7 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             logging.info(f"No model found with higher accuracy than base accuracy")
         return metric_info_artifact
     except Exception as e:
-        raise insuranceException(e, sys) from e
+        raise PackageException(e, sys) from e
 
 
 def get_sample_model_config_yaml_file(export_dir: str):
@@ -152,7 +152,7 @@ def get_sample_model_config_yaml_file(export_dir: str):
             yaml.dump(model_config, file)
         return export_file_path
     except Exception as e:
-        raise insuranceException(e, sys)
+        raise PackageException(e, sys)
 
 
 class ModelFactory:
@@ -170,7 +170,7 @@ class ModelFactory:
             self.grid_searched_best_model_list = None
 
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     @staticmethod
     def update_property_of_class(instance_ref:object, property_data: dict):
@@ -183,7 +183,7 @@ class ModelFactory:
                 setattr(instance_ref, key, value)
             return instance_ref
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     @staticmethod
     def read_params(config_path: str) -> dict:
@@ -192,7 +192,7 @@ class ModelFactory:
                 config:dict = yaml.safe_load(yaml_file)
             return config
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     @staticmethod
     def class_for_name(module_name:str, class_name:str):
@@ -204,7 +204,7 @@ class ModelFactory:
             class_ref = getattr(module, class_name)
             return class_ref
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def execute_grid_search_operation(self, initialized_model: InitializedModelDetail, input_feature,
                                       output_feature) -> GridSearchedBestModel:
@@ -281,7 +281,7 @@ class ModelFactory:
             self.initialized_model_list = initialized_model_list
             return self.initialized_model_list
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def initiate_best_parameter_search_for_initialized_model(self, initialized_model: InitializedModelDetail,
                                                              input_feature,
@@ -301,7 +301,7 @@ class ModelFactory:
                                                       input_feature=input_feature,
                                                       output_feature=output_feature)
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def initiate_best_parameter_search_for_initialized_models(self,
                                                               initialized_model_list: List[InitializedModelDetail],
@@ -319,7 +319,7 @@ class ModelFactory:
                 self.grid_searched_best_model_list.append(grid_searched_best_model)
             return self.grid_searched_best_model_list
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     @staticmethod
     def get_model_detail(model_details: List[InitializedModelDetail],
@@ -332,7 +332,7 @@ class ModelFactory:
                 if model_data.model_serial_number == model_serial_number:
                     return model_data
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     @staticmethod
     def get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list: List[GridSearchedBestModel],
@@ -351,7 +351,7 @@ class ModelFactory:
             logging.info(f"Best model: {best_model}")
             return best_model
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def get_best_model(self, X, y,base_accuracy=0.6) -> BestModel:
         try:
@@ -366,4 +366,4 @@ class ModelFactory:
             return ModelFactory.get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list,
                                                                                   base_accuracy=base_accuracy)
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e

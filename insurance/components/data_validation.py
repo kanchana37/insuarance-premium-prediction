@@ -1,5 +1,5 @@
 from insurance.logger import logging
-from insurance.exception import insuranceException
+from insurance.exception import PackageException
 from insurance.entity.config_entity import DataValidationConfig
 from insurance.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 import os,sys
@@ -20,7 +20,7 @@ class DataValidation:
             self.data_validation_config = data_validation_config
             self.data_ingestion_artifact = data_ingestion_artifact
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
 
     def get_train_and_test_df(self):
@@ -29,7 +29,7 @@ class DataValidation:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             return train_df,test_df
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
 
     def is_train_test_file_exists(self)->bool:
@@ -57,28 +57,32 @@ class DataValidation:
 
             return is_available
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     
     def validate_dataset_schema(self)->bool:
+        
         try:
             validation_status = False
+            schema_file_path=self.data_validation_config.schema_file_path
+            schema_data=read_yaml_file(file_path=schema_file_path)
+            schema_columns=schema_data['columns']
+            schema_datatype_dataframe=pd.DataFrame.from_dict(schema_columns,orient='index')
             
-            #Assigment validate training and testing dataset using schema file
-            #1. Number of Column
-            #2. Check the value of ocean proximity 
-            # acceptable values     <1H OCEAN
-            # INLAND
-            # ISLAND
-            # NEAR BAY
-            # NEAR OCEAN
-            #3. Check column names
-
-
-            validation_status = True
-            return validation_status 
+            train_file_path=self.data_ingestion_artifact.train_file_path
+            train_df=pd.read_csv(train_file_path)
+            
+            train_datatype_dataframe=pd.DataFrame(train_df.dtypes)
+            if schema_datatype_dataframe.equals(train_datatype_dataframe):
+                validation_status=True
+                logging.info("Data columns and datatype validation completed")
+            else:
+                logging.info("Data validation faliure : data type not same or columns name mismatch")
+            return validation_status
+        
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
+
 
     def get_and_save_data_drift_report(self):
         try:
@@ -98,7 +102,7 @@ class DataValidation:
                 json.dump(report, report_file, indent=6)
             return report
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def save_data_drift_report_page(self):
         try:
@@ -112,7 +116,7 @@ class DataValidation:
 
             dashboard.save(report_page_file_path)
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def is_data_drift_found(self)->bool:
         try:
@@ -120,7 +124,7 @@ class DataValidation:
             self.save_data_drift_report_page()
             return True
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def initiate_data_validation(self)->DataValidationArtifact :
         try:
@@ -138,7 +142,7 @@ class DataValidation:
             logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
 
     def __del__(self):

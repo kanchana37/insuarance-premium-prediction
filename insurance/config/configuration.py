@@ -4,7 +4,7 @@ from insurance.util.util import read_yaml_file
 from insurance.logger import logging
 import sys,os
 from insurance.constant import *
-from insurance.exception import insuranceException
+from insurance.exception import PackageException
 
 
 class Configuartion:
@@ -18,7 +18,7 @@ class Configuartion:
             self.training_pipeline_config = self.get_training_pipeline_config()
             self.time_stamp = current_time_stamp
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
 
     def get_data_ingestion_config(self) ->DataIngestionConfig:
@@ -64,7 +64,7 @@ class Configuartion:
             logging.info(f"Data Ingestion config: {data_ingestion_config}")
             return data_ingestion_config
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def get_data_validation_config(self) -> DataValidationConfig:
         try:
@@ -99,7 +99,7 @@ class Configuartion:
             )
             return data_validation_config
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
         try:
@@ -148,7 +148,7 @@ class Configuartion:
             logging.info(f"Data transformation config: {data_transformation_config}")
             return data_transformation_config
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         try:
@@ -179,7 +179,7 @@ class Configuartion:
             logging.info(f"Model trainer config: {model_trainer_config}")
             return model_trainer_config
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def get_model_evaluation_config(self) ->ModelEvaluationConfig:
         try:
@@ -196,7 +196,7 @@ class Configuartion:
             logging.info(f"Model Evaluation Config: {response}.")
             return response
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
@@ -211,7 +211,7 @@ class Configuartion:
             return model_pusher_config
 
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e
 
     def get_training_pipeline_config(self) ->TrainingPipelineConfig:
         try:
@@ -225,4 +225,4 @@ class Configuartion:
             logging.info(f"Training pipleine config: {training_pipeline_config}")
             return training_pipeline_config
         except Exception as e:
-            raise insuranceException(e,sys) from e
+            raise PackageException(e,sys) from e

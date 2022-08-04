@@ -1,4 +1,4 @@
-from insurance.exception import insuranceException
+from insurance.exception import PackageException
 import sys
 from insurance.logger import logging
 from typing import List
@@ -109,7 +109,7 @@ class ModelTrainer:
             logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
             return model_trainer_artifact
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def __del__(self):
         logging.info(f"{'>>' * 30}Model trainer log completed.{'<<' * 30} ")
@@ -120,7 +120,7 @@ class ModelTrainer:
 #reading model config file 
 #getting best model on training datset
 #evaludation models on both training & testing datset -->model object
-#loading preprocessing pbject
+#loading preprocessing object
 #custom model object by combining both preprocessing obj and model obj
 #saving custom model object
 #return model_trainer_artifact
