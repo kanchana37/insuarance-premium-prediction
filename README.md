@@ -13,23 +13,31 @@ To give people an estimate of how much they need based on their individual healt
 4. [GIT cli](https://git-scm.com/downloads)
 5. [GIT Documentation](https://git-scm.com/docs/gittutorial)
 
-### Approach :
+## Approach :
 Applying machine learing tasks like Data Exploration, Data Cleaning, Feature Engineering, Model Building and model testing to build a solution that should able to predict the premium of the personal for health insurance.
 
-1.Data Exploration : Exploring the dataset using pandas, numpy, matplotlib, plotly and seaborn.
+### 1.Data Exploration 
+Exploring the dataset using pandas, numpy, matplotlib, plotly and seaborn.
 
-2.Exploratory Data Analysis : Plotted different graphs to get more insights about dependent and independent variables/features.
+### 2.Exploratory Data Analysis 
+Plotted different graphs to get more insights about dependent and independent variables/features.
 
-3.Feature Engineering : Numerical features scaled down and Categorical features encoded.
-Model Building : In this step, first dataset Splitting is done. After that model is trained on different Machine Learning Algorithms such as:
-i.Linear Regression
-ii.Decision Tree Regressor
-iii.Random Forest Regressor
-iv.Gradient Boosting Regressor
-v.XGBoost Regressor
+### 3.Feature Engineering 
+Numerical features scaled down and Categorical features encoded.
 
-5.Model Selection : Tested all the models to check the RMSE & R-squared.
-Pickle File : Selected model as per best RMSE score & R-squared and created pickle file using pickle library.
+### 4.Model Building 
+In this step, first dataset Splitting is done. After that model is trained on different Machine Learning Algorithms such as:
+#### i.Linear Regression
+#### ii.Decision Tree Regressor
+#### iii.Random Forest Regressor
+#### iv.Gradient Boosting Regressor
+#### v.XGBoost Regressor
+
+### 5.Model Selection 
+Tested all the models to check the RMSE & R-squared.
+
+### 6.Pickle File 
+Selected model as per best RMSE score & R-squared and created pickle file using pickle library.
 Webpage &Deployment : Created a web application that takes all the necessary inputs from the user & shows the output. Then deployed project on the Heroku Platform.
 
 
@@ -90,4 +98,4 @@ Webpage &Deployment : Created a web application that takes all the necessary inp
 https://dashboard.heroku.com/apps/insurance-prem-prediction12
 
 
-### Web Interface :
+## Web Interface :
