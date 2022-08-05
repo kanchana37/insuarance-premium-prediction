@@ -99,5 +99,6 @@ https://dashboard.heroku.com/apps/insurance-prem-prediction12
 
 
 ## Web Interface :
-[project interface.docx](https://github.com/kanchana37/insuarance-premium-prediction/files/9273623/project.interface.docx)
+![insurance prem img](https://user-images.githubusercontent.com/96316899/183215607-669588d1-8564-4d65-b85f-f7d4d9e72fe9.jpg)
+
 
