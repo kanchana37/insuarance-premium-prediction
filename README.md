@@ -35,20 +35,20 @@ Webpage &Deployment : Created a web application that takes all the necessary inp
 
 ## SETUP
 
-Create a conda environment
+#### Create a conda environment
 conda create -p venv python==3.7 -y
 
-Activate conda environment
+#### Activate conda environment
 conda activate venv/
 
-To install requirement file
+#### To install requirement file
 pip install -r requirements.txt
 
-Add files to git git add . or git add <file_name>
-1.To check the git status git status
-2.To check all version maintained by git git log
-3.To create version/commit all changes by git git commit -m "message"
-4.To send version/changes to github git push origin main
+#### Add files to git git add . or git add <file_name>
+1.To check the git status ```git status```
+2.To check all version maintained by git ```git log```
+3.To create version/commit all changes by git ```git commit -m "message"```
+4.To send version/changes to github ```git push origin main```
 
 
 
@@ -60,19 +60,23 @@ To setup CI/CD pipeline in heroku we need 3 information
 
 TO BUILD DOCKER IMAGE
 
-1.docker build -t <image_name>:<tagname> .
-> Note: Image name for docker must be lowercase
-2.To list docker image docker images
-3.To Run docker image docker run -p 5000:5000 -e PORT=5000 93719f65bc1e
-4.To check running container in docker docker pss``
+1.``` build -t <image_name>:<tagname> ```
+2.To list docker image ```docker images```
+3.To Run docker image ```docker run -p 5000:5000 -e PORT=5000 93719f65bc1e```
+4.To check running container in docker ```docker ps``
 5.To stop docker conatinerdocker stop <container_id>
 
 ## Project Pipeline
 1.Data Ingestion
+```
 2.Data Validation
+```
 3.Data Transformation
+```
 4.Model Training
+```
 5.Model Evaluation
+```
 6.Model Deployement
 
 ## Deployment Link:
