@@ -133,8 +133,7 @@ def predict():
                                        bmi=bmi,
                                        children=children,
                                        smoker=smoker,
-                                       region=region,
-                                                    )
+                                       region=region)
         insurance_df = insuranceData.get_insurance_input_data_frame()
         insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
         folder_name = list(map(int, os.listdir(MODEL_DIR)))
