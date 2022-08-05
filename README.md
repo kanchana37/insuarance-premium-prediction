@@ -35,74 +35,39 @@ Webpage &Deployment : Created a web application that takes all the necessary inp
 
 ## SETUP
 
-Creating conda environment
-
+Create a conda environment
 conda create -p venv python==3.7 -y
+
+Activate conda environment
 conda activate venv/
-OR
 
-conda activate venv
+To install requirement file
 pip install -r requirements.txt
-To Add files to git
 
-git add .
-OR
+Add files to git git add . or git add <file_name>
+1.To check the git status git status
+2.To check all version maintained by git git log
+3.To create version/commit all changes by git git commit -m "message"
+4.To send version/changes to github git push origin main
 
-git add <file_name>
-Note: To ignore file or folder from git we can write name of file/folder in .gitignore file
 
-To check the git status
 
-git status
-To check all version maintained by git
-
-git log
-To create version/commit all changes by git
-
-git commit -m "message"
-To send version/changes to github
-
-git push origin main
-To check remote url
-
-git remote -v
-
-```
 
 To setup CI/CD pipeline in heroku we need 3 information
 1. HEROKU_EMAIL = kanchanachopra376@gmail.com
 2. HEROKU_API_KEY = <>
 3. HEROKU_APP_NAME = insurance-prem-prediction12
 
-BUILD DOCKER IMAGE
-```
-docker build -t <image_name>:<tagname> .
-```
+TO BUILD DOCKER IMAGE
+
+1.docker build -t <image_name>:<tagname> .
 > Note: Image name for docker must be lowercase
+2.To list docker image docker images
+3.To Run docker image docker run -p 5000:5000 -e PORT=5000 93719f65bc1e
+4.To check running container in docker docker pss``
+5.To stop docker conatinerdocker stop <container_id>
 
-
-To list docker image
-```
-docker images
-```
-
-Run docker image
-```
-docker run -p 5000:5000 -e PORT=5000 93719f65bc1e
-
-```
-
-To check running container in docker
-```
-docker pss
-```
-
-To stop docker conatiner
-```
-docker stop <container_id>
-```
-
-### Project Pipeline
+## Project Pipeline
 1.Data Ingestion
 2.Data Validation
 3.Data Transformation
