@@ -99,6 +99,6 @@ https://dashboard.heroku.com/apps/insurance-prem-prediction12
 
 
 ## Web Interface :
-![insurance prem img](https://user-images.githubusercontent.com/96316899/183215607-669588d1-8564-4d65-b85f-f7d4d9e72fe9.jpg)
+![web interface](https://user-images.githubusercontent.com/96316899/183217190-8967c16d-3ce1-452c-b8aa-c65e5ef34268.png)
 
 
