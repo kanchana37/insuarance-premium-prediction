@@ -245,7 +245,7 @@ class ModelFactory:
             
             return grid_searched_best_model
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def get_initialized_model_list(self) -> List[InitializedModelDetail]:
         """

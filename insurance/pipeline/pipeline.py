@@ -1,8 +1,8 @@
 from collections import namedtuple
 from datetime import datetime
 import uuid
-from insurance.config.configuration import Configuartion
-from insurance.logger import logging, get_log_file_name
+from insurance.config.configuration import Configuration
+from insurance.logger import logging, LOG_FILE_NAME
 from insurance.exception import PackageException
 from threading import Thread
 from typing import List
@@ -35,7 +35,7 @@ class Pipeline(Thread):
     experiment: Experiment = Experiment(*([None] * 11))
     experiment_file_path = None
 
-    def __init__(self, config: Configuartion ) -> None:
+    def __init__(self, config: Configuration ) -> None:
         try:
             os.makedirs(config.training_pipeline_config.artifact_dir, exist_ok=True)
             Pipeline.experiment_file_path=os.path.join(config.training_pipeline_config.artifact_dir,EXPERIMENT_DIR_NAME, EXPERIMENT_FILE_NAME)

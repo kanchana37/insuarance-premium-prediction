@@ -7,7 +7,7 @@ from insurance.constant import *
 from insurance.exception import PackageException
 
 
-class Configuartion:
+class Configuration:
 
     def __init__(self,
         config_file_path:str =CONFIG_FILE_PATH,
