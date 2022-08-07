@@ -4,6 +4,7 @@ from insurance.exception import PackageException
 from insurance.logger import logging
 from insurance.entity.artifact_entity import DataIngestionArtifact
 import tarfile
+import zipfile
 import numpy as np
 from six.moves import urllib
 import pandas as pd
@@ -26,23 +27,23 @@ class DataIngestion:
             download_url = self.data_ingestion_config.dataset_download_url
 
             #folder location to download file
-            tgz_download_dir = self.data_ingestion_config.tgz_download_dir
+            zip_download_dir = self.data_ingestion_config.zip_download_dir
             
-            os.makedirs(tgz_download_dir,exist_ok=True)
+            os.makedirs(zip_download_dir,exist_ok=True)
 
             insurance_file_name = os.path.basename(download_url)
 
-            tgz_file_path = os.path.join(tgz_download_dir, insurance_file_name)
+            zip_file_path = os.path.join(zip_download_dir, insurance_file_name)
 
-            logging.info(f"Downloading file from :[{download_url}] into :[{tgz_file_path}]")
-            urllib.request.urlretrieve(download_url, tgz_file_path)
-            logging.info(f"File :[{tgz_file_path}] has been downloaded successfully.")
-            return tgz_file_path
+            logging.info(f"Downloading file from :[{download_url}] into :[{zip_file_path}]")
+            urllib.request.urlretrieve(download_url, zip_file_path)
+            logging.info(f"File :[{zip_file_path}] has been downloaded successfully.")
+            return zip_file_path
 
         except Exception as e:
             raise PackageException(e,sys) from e
 
-    def extract_tgz_file(self,tgz_file_path:str):
+    def extract_zip_file(self,zip_file_path:str):
         try:
             raw_data_dir = self.data_ingestion_config.raw_data_dir
 
@@ -51,9 +52,9 @@ class DataIngestion:
 
             os.makedirs(raw_data_dir,exist_ok=True)
 
-            logging.info(f"Extracting tgz file: [{tgz_file_path}] into dir: [{raw_data_dir}]")
-            with tarfile.open(tgz_file_path) as insurance_tgz_file_obj:
-                insurance_tgz_file_obj.extractall(path=raw_data_dir)
+            logging.info(f"Extracting zip file: [{zip_file_path}] into dir: [{raw_data_dir}]")
+            with tarfile.open(zip_file_path) as insurance_zip_file_obj:
+                insurance_zip_file_obj.extractall(path=raw_data_dir)
             logging.info(f"Extraction completed")
 
         except Exception as e:
@@ -115,8 +116,8 @@ class DataIngestion:
 
     def initiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
-            tgz_file_path =  self.download_insurance_data()
-            self.extract_tgz_file(tgz_file_path=tgz_file_path)
+            zip_file_path =  self.download_insurance_data()
+            self.extract_zip_file(zip_file_path=zip_file_path)
             return self.split_data_as_train_test()
         except Exception as e:
             raise PackageException(e,sys) from e

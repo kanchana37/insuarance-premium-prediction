@@ -46,7 +46,7 @@ class ModelTrainer:
             self.model_trainer_config = model_trainer_config
             self.data_transformation_artifact = data_transformation_artifact
         except Exception as e:
-            raise insuranceException(e, sys) from e
+            raise PackageException(e, sys) from e
 
     def initiate_model_trainer(self)->ModelTrainerArtifact:
         try:
