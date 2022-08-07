@@ -136,21 +136,14 @@ def predict():
                                        region=region)
         insurance_df = insuranceData.get_insurance_input_data_frame()
         insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
-        folder_name = list(map(int, os.listdir(MODEL_DIR)))
-        if folder_name==[]:
-            context = {
-                        INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
-                        EXPENSES_VALUE_KEY: "TRAIN MODEL FIRST",
-                        }
-            return render_template('predict.html', context=context)          
         expenses = insurance_predictor.predict(insurance_df)
-        logging.info(f"expenses :{float(expenses)}" )
         context = {
-                    INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
-                    EXPENSES_VALUE_KEY: float(expenses),
-                    }
+           INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
+           EXPENSES_VALUE_KEY: expenses,
+        }
         return render_template('predict.html', context=context)
     return render_template("predict.html", context=context)
+
 
 @app.route('/saved_models', defaults={'req_path': 'saved_models'})
 @app.route('/saved_models/<path:req_path>')
