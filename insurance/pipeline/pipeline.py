@@ -174,7 +174,7 @@ class Pipeline(Thread):
         try:
             self.run_pipeline()
         except Exception as e:
-            raise e
+            raise PackageException(e, sys) from e
 
     def save_experiment(self):
         try:
