@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <!--suppress XmlInvalidId -->
-<style>
+<body align="center" style="background-color:rgb(238, 255, 127)">
+  
 <head>
+    <!-- <link rel="stylesheet" type="text/css" href="index.css" /> -->
     <meta charset="UTF-8">
     <title>Model Deployment</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <style>
-
-      body {
-  background-image: url('img_girl.jpg');
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-size: 100% 100% ;
-  font-family: 'Tangerine', serif;
-  font-size: 28px;
-      }
-    </style>
 
 </head>
 
-<div class="login">
-    <h1 style="text-align:center">Insurance Premium Prediction </h1>
+<body>
+
+  <img src="{{ url_for('static', filename='insurance.jpg')}}" alt = "img" width="600" height="600" style="background-size:70%;
+  background-repeat: no-repeat;
+  float:  right;">
+  <div class="login">
+    <h1 style="text-align:left">Insurance Premium Prediction </h1>
 
     <form align="left" action="{{ url_for('predict')}}" method="post">
         <label for="age">Please Enter age <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
@@ -99,3 +95,5 @@
     {{ prediction_text }}
 
 </div>
+</body>
+</html>
