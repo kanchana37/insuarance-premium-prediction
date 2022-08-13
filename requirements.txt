@@ -2,6 +2,7 @@ numpy
 matplotlib
 Flask
 gunicorn
+seaborn
 sklearn
 pandas
 pyYAML
