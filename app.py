@@ -32,25 +32,10 @@ EXPENSES_VALUE_KEY = "expenses"
 
 app=Flask(__name__)
 
-@app.route("/dashboard",methods=['GET','POST'])
-def dashboard():
-    try:
-        log_count = 0
-        trained_count = 0
-        for root_dir, cur_dir, files in os.walk(LOG_FOLDER_NAME):
-            log_count += len(files)
-        for root_dir, cur_dir, files in os.walk(SAVED_MODELS_DIR_NAME):
-            trained_count += len(files)
-        return render_template('dashboard.html',dashboard=True,log_count=log_count, trained_count= trained_count)
-    except Exception as e:
-        sharing = PackageException(e,sys)
-        logging.info(sharing.error_message)
-    logging.info("Testing logger module")
-
 @app.route('/artifact', defaults={'req_path': 'insurance'})
 @app.route('/artifact/<path:req_path>')
 def render_artifact_dir(req_path):
-    os.makedirs("insurance ", exist_ok=True)
+    os.makedirs("insurance", exist_ok=True)
     # Joining the base and the requested path
     print(f"req_path: {req_path}")
     abs_path = os.path.join(req_path)
@@ -88,14 +73,15 @@ def index():
     except Exception as e:
         return str(e)
 
+
 @app.route('/view_experiment_hist', methods=['GET', 'POST'])
 def view_experiment_history():
-    pipeline = Pipeline(config=Configuration(CONFIG_FILE_PATH))
     experiment_df = Pipeline.get_experiments_status()
     context = {
         "experiment": experiment_df.to_html(classes='table table-striped col-12')
     }
     return render_template('experiment_history.html', context=context)
+
 
 @app.route('/train', methods=['GET', 'POST'])
 def train():
@@ -117,9 +103,8 @@ def train():
 def predict():
     context = {
         INSURANCE_DATA_KEY: None,
-        EXPENSES_VALUE_KEY: None
+        EXPENSES_VALUE_KEY: None 
     }
-
     if request.method == 'POST':
         age = int(request.form.get('age'))
         sex = request.form.get('sex')
@@ -133,8 +118,10 @@ def predict():
                                        bmi=bmi,
                                        children=children,
                                        smoker=smoker,
-                                       region=region)
-        insurance_df = insuranceData.get_insurance_input_data_frame()
+                                       region=region,
+                                       expenses=1.0)
+
+        insurance_df = Insurance_data.get_insurance_input_data_frame()
         insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
         expenses = insurance_predictor.predict(insurance_df)
         context = {
@@ -143,6 +130,7 @@ def predict():
         }
         return render_template('predict.html', context=context)
     return render_template("predict.html", context=context)
+
 
 
 @app.route('/saved_models', defaults={'req_path': 'saved_models'})
@@ -171,12 +159,14 @@ def saved_models_dir(req_path):
     }
     return render_template('saved_models_files.html', result=result)
 
+
 @app.route("/update_model_config", methods=['GET', 'POST'])
 def update_model_config():
     try:
         if request.method == 'POST':
             model_config = request.form['new_model_config']
             model_config = model_config.replace("'", '"')
+            print(model_config)
             model_config = json.loads(model_config)
 
             write_yaml_file(file_path=MODEL_CONFIG_FILE_PATH, data=model_config)
@@ -187,6 +177,7 @@ def update_model_config():
     except  Exception as e:
         logging.exception(e)
         return str(e)
+
 
 @app.route(f'/logs', defaults={'req_path': f'{LOG_FOLDER_NAME}'})
 @app.route(f'/{LOG_FOLDER_NAME}/<path:req_path>')
@@ -217,5 +208,5 @@ def render_log_dir(req_path):
     return render_template('log_files.html', result=result)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app.run()
