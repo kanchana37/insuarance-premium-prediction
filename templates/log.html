@@ -1,4 +1,4 @@
-{% extends 'dashboard.html' %}
+{% extends 'header.html' %}
 
 {% block head %}
 
@@ -9,20 +9,13 @@
 {% block content %}
 
 
-<main class="mt-5 pt-3">
-    <div class="container-fluid">
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/logs">Log File</a></li>
-            </ol>
-        </nav>
-        <hr>
-
-        {{ context['log']|safe }}
+Go to <a class="btn btn-primary" href="/">Home</a>
+<div class="row">
+  
+    <div class="col-md-12 " style="margin-bottom:20px;height:500px;overflow:scroll">
+    {{ context['log']|safe }}
     </div>
-</main>
+</div>
 
 
         
