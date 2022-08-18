@@ -10,15 +10,14 @@ import pandas as pd
 
 class insuranceData:
 
-    
     def __init__(self,
-                 age : int,
-                 sex : str,
-                 bmi : float,
-                 children : int,
-                 smoker : str,
-                 region : str,
-                 expenses : float
+                 age: int,
+                 sex: str,
+                 bmi: float,
+                 children: int,
+                 smoker: str,
+                 region: str,
+                 expenses: float
                  ):
 
         try:
@@ -29,7 +28,7 @@ class insuranceData:
             self.smoker = smoker
             self.region = region
             self.expenses = expenses
-          
+
         except Exception as e:
             raise PackageException(e, sys) from e
 
@@ -50,8 +49,8 @@ class insuranceData:
                 "children": [self.children],
                 "smoker": [self.smoker],
                 "region": [self.region],
-                "expenses": [self.expenses]}
-                
+                }
+
             return input_data
         except Exception as e:
             raise PackageException(e, sys)
