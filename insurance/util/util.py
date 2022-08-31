@@ -6,22 +6,6 @@ import dill
 import pandas as pd
 from insurance.constant import *
 
-
-def write_yaml_file(file_path:str,data:dict=None):
-    """
-    Create yaml file 
-    file_path: str
-    data: dict
-    """
-    try:
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path,"w") as yaml_file:
-            if data is not None:
-                yaml.dump(data,yaml_file)
-    except Exception as e:
-        raise PackageException(e,sys)
-
-
 def read_yaml_file(file_path:str)->dict:
     """
     Reads a YAML file and returns the contents as a dictionary.
@@ -32,8 +16,7 @@ def read_yaml_file(file_path:str)->dict:
             return yaml.safe_load(yaml_file)
     except Exception as e:
         raise PackageException(e,sys) from e
-
-
+    
 def save_numpy_array_data(file_path: str, array: np.array):
     """
     Save numpy array data to file
@@ -109,3 +92,17 @@ def load_data(file_path: str, schema_file_path: str) -> pd.DataFrame:
 
     except Exception as e:
         raise PackageException(e,sys) from e
+    
+def write_yaml_file(file_path:str,data:dict=None):
+    """
+    Create yaml file 
+    file_path: str
+    data: dict
+    """
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path,"w") as yaml_file:
+            if data is not None:
+                yaml.dump(data,yaml_file, default_flow_style=False)
+    except Exception as e:
+        raise PackageException(e,sys)

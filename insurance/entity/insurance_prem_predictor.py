@@ -1,10 +1,8 @@
 import os
 import sys
 from unicodedata import category
-
 from insurance.exception import PackageException
 from insurance.util.util import load_object
-
 import pandas as pd
 
 
@@ -17,8 +15,8 @@ class insuranceData:
                  children: int,
                  smoker: str,
                  region: str,
-                 expenses: float
-                 ):
+                 expenses: float=None
+                ):
 
         try:
             self.age = age
@@ -78,7 +76,7 @@ class insurance_prem_Predictor:
         try:
             model_path = self.get_latest_model_path()
             model = load_object(file_path=model_path)
-            insurance_prem_value = model.predict(X)
-            return insurance_prem_value
+            expenses = model.predict(X)
+            return expenses
         except Exception as e:
             raise PackageException(e, sys) from e

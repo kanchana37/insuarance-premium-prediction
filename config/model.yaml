@@ -3,10 +3,9 @@ grid_search:
   module: sklearn.model_selection
   params:
     cv: 5
-    verbose: 2
+    verbose: 1
 
 model_selection:
-
   module_0:
     class: LinearRegression
     module: sklearn.linear_model
@@ -50,12 +49,7 @@ model_selection:
       - 'auto'
       - 'sqrt'
       - 'log2'
-      max_depth :
-      - 4
-      
-      
-
-
+      max_depth : 4
   module_3:
     class:  GradientBoostingRegressor
     module: sklearn.ensemble
@@ -72,6 +66,8 @@ model_selection:
       - 'auto'
       n_estimators:
       - 100
-      max_depth :
-      - 4
+      max_depth : 4  
+
+
+  
       

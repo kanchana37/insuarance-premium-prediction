@@ -103,33 +103,37 @@ def train():
 def predict():
     context = {
         INSURANCE_DATA_KEY: None,
-        EXPENSES_VALUE_KEY: None 
-    }
-    if request.method == 'POST':
-        age = int(request.form.get('age'))
-        sex = request.form.get('sex')
-        bmi = float(request.form.get('bmi'))
-        children = int(request.form.get('children'))
-        smoker = request.form.get('smoker')
-        region = request.form.get('region')
+        EXPENSES_VALUE_KEY: None }
 
-        Insurance_data = insuranceData(age=age,
+    try:
+        if request.method == 'POST':
+          age = int(request.form.get('age'))
+          sex = request.form.get('sex')
+          bmi = float(request.form.get('bmi'))
+          children = int(request.form.get('children'))
+          smoker = request.form.get('smoker')
+          region = request.form.get('region')
+
+          Insurance_data = insuranceData(age=age,
                                        sex=sex,
                                        bmi=bmi,
                                        children=children,
                                        smoker=smoker,
                                        region=region,
-                                       expenses=1.0)
+                                     )
 
-        insurance_df = Insurance_data.get_insurance_input_data_frame()
-        insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
-        expenses = insurance_predictor.predict(insurance_df)
-        context = {
-           INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
-           EXPENSES_VALUE_KEY: expenses,
+          insurance_df = Insurance_data.get_insurance_input_data_frame()
+          insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
+          expenses = insurance_predictor.predict(X=insurance_df)
+          print(expenses)
+          context = {
+              INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
+              EXPENSES_VALUE_KEY: expenses,
         }
-        return render_template('predict.html', context=context)
-    return render_template("predict.html", context=context)
+          return render_template('predict.html', context=context)
+        return render_template("predict.html", context=context)
+    except Exception as e:
+        return str(PackageException(e,sys))
 
 
 
