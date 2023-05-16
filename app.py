@@ -27,7 +27,7 @@ MODEL_DIR = os.path.join(ROOT_DIR, SAVED_MODELS_DIR_NAME)
 
 from insurance.logger.__init__ import get_log_dataframe
 
-INSURANCE_DATA_KEY = "Insurance_data"
+INSURANCE_DATA_KEY = "insurance_data"
 EXPENSES_VALUE_KEY = "expenses"
 
 app=Flask(__name__)
@@ -114,7 +114,7 @@ def predict():
           smoker = request.form.get('smoker')
           region = request.form.get('region')
 
-          Insurance_data = insuranceData(age=age,
+          insurance_data = insuranceData(age=age,
                                        sex=sex,
                                        bmi=bmi,
                                        children=children,
@@ -122,18 +122,19 @@ def predict():
                                        region=region,
                                      )
 
-          insurance_df = Insurance_data.get_insurance_input_data_frame()
+          insurance_df = insurance_data.get_insurance_input_data_frame()
           insurance_predictor = insurance_prem_Predictor(model_dir=MODEL_DIR)
           expenses = insurance_predictor.predict(X=insurance_df)
           print(expenses)
           context = {
-              INSURANCE_DATA_KEY: Insurance_data.get_insurance_data_as_dict(),
+              INSURANCE_DATA_KEY: insurance_data.get_insurance_data_as_dict(),
               EXPENSES_VALUE_KEY: expenses,
         }
           return render_template('predict.html', context=context)
         return render_template("predict.html", context=context)
+
     except Exception as e:
-        return str(PackageException(e,sys))
+        raise PackageException(e,sys) from e
 
 
 

@@ -116,7 +116,8 @@
               Insurance Premium Price
             </div>
             <div class="card-body">
-        {% if context['premium_data'] is not none %}
+
+        {% if context['insurance_data'] is not none %}
         <table class="table table-striped">
             <caption>Insurance Premium Prediction </caption>
             <tr>
@@ -124,7 +125,8 @@
                 <th>Feature Value</th>
 
             </tr>
-            {% for column,value in context['premium_data'].items() %}
+            {% for column,value in context['insurance_data'].items() %}
+
 
 
             <tr>
